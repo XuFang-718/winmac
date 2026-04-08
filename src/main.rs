@@ -16,7 +16,7 @@ use windows::Win32::Foundation::{
 use windows::Win32::Graphics::Dwm::{
     DWM_SYSTEMBACKDROP_TYPE, DWM_WINDOW_CORNER_PREFERENCE, DWMSBT_NONE, DWMWA_BORDER_COLOR,
     DWMWA_COLOR_NONE, DWMWA_SYSTEMBACKDROP_TYPE, DWMWA_USE_HOSTBACKDROPBRUSH,
-    DWMWA_USE_IMMERSIVE_DARK_MODE, DWMWA_WINDOW_CORNER_PREFERENCE, DWMWCP_ROUND, DWMWCP_ROUNDSMALL,
+    DWMWA_USE_IMMERSIVE_DARK_MODE, DWMWA_WINDOW_CORNER_PREFERENCE, DWMWCP_ROUND,
     DwmSetWindowAttribute,
 };
 use windows::Win32::Graphics::Gdi::{
@@ -1209,7 +1209,7 @@ unsafe fn apply_main_window_theme(hwnd: HWND, theme: ThemeMode) {
 
 unsafe fn apply_overlay_theme(hwnd: HWND, theme: ThemeMode) {
     let dark_flag: i32 = if theme == ThemeMode::Dark { 1 } else { 0 };
-    let round = DWM_WINDOW_CORNER_PREFERENCE(DWMWCP_ROUNDSMALL.0);
+    let round = DWM_WINDOW_CORNER_PREFERENCE(DWMWCP_ROUND.0);
     let backdrop = DWM_SYSTEMBACKDROP_TYPE(DWMSBT_NONE.0);
     let host_backdrop = BOOL(0);
     let no_border = DWMWA_COLOR_NONE;

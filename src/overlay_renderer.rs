@@ -155,6 +155,11 @@ impl OverlayRenderer {
         let size = rt.GetSize();
         let width = size.width;
         let height = size.height;
+        let card = D2D1_ROUNDED_RECT {
+            rect: rectf(0.0, 0.0, width, height),
+            radiusX: 26.0,
+            radiusY: 26.0,
+        };
 
         let keycap_alt = D2D1_ROUNDED_RECT {
             rect: rectf(18.0, height - 36.0, 56.0, height - 12.0),
@@ -172,6 +177,7 @@ impl OverlayRenderer {
         rt.SetTextAntialiasMode(D2D1_TEXT_ANTIALIAS_MODE_CLEARTYPE);
         rt.Clear(Some(&palette.background));
 
+        let background = solid_brush(rt, palette.background)?;
         let badge = solid_brush(rt, palette.badge)?;
         let title = solid_brush(rt, palette.title)?;
         let subtitle = solid_brush(rt, palette.subtitle)?;
@@ -179,6 +185,8 @@ impl OverlayRenderer {
         let key_border = solid_brush(rt, palette.key_border)?;
         let key_text = solid_brush(rt, palette.key_text)?;
         let hint = solid_brush(rt, palette.hint)?;
+
+        rt.FillRoundedRectangle(&card, &background);
 
         draw_text(
             &self.dwrite_factory,
